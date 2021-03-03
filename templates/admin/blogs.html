@@ -1,0 +1,141 @@
+{% extends 'admin/sidebar.html' %}
+{% load static %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>Farmers Market</title>
+
+
+</head>
+
+<body id="page-top">
+<!-- Page Wrapper -->
+ {% include 'admin/navbar.html'%}            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <div
+                        class="d-sm-flex align-items-center justify-content-between mb-4"
+                >
+                    <h1 class="h3 mb-0 text-gray-800">Vendors</h1>
+                    <a
+                            href="{% url  'export_pdf' %}"
+                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                            target="_blank"
+                    ><i class="fas fa-download fa-sm text-white-50"></i> Generate
+                        Report</a
+                    >
+                </div>
+
+
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+
+                </div>
+
+
+            </div>
+
+            <!-- Content Row -->
+            <div class="row">
+                <!-- In Table -->
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table
+                                class="table table-bordered"
+                                id="dataTable"
+                                width="100%"
+                                cellspacing="0"
+                        >
+                            <thead>
+                            <tr class="table-info">
+                                 <th>Sn</th>
+                                <th>Vendor Name</th>
+                                <th>Location</th>
+                                <th>Phone number</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr class="table-info">
+                                <th>Sn</th>
+                                <th>Vendor Name</th>
+                                <th>Location</th>
+                                <th>Phone number</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            {% for blog in blogs %}
+                            <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td><a href="{% url 'blog_comments' blog.id %}" value="blog.id">{{ blog.title }}</a></td>
+                            <td>{{ blog.discription }}</td>
+                            <td>{{ blog.post_date }}</td>
+                            <td> <img src="{{blog.image.url}}" class="img" alt="no img"><br></td>
+
+                            <td>
+                                <form method="POST" action="{% url 'remove_blog' %}">
+                                    {%csrf_token %}
+                                    <input type="hidden" name="blog_id" value="{{blog.id}}">
+                                    <input type="submit" value="remove"  class="btn btn-danger btn-sm rounded-0"
+                                                   data-toggle="tooltip" data-placement="top">
+
+                                </form>
+
+
+
+                            </td>
+                            </tr>
+                            {% endfor %}
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Content Row -->
+
+
+        </div>
+
+        <!-- End of Main Content -->
+
+
+        <!-- End of Footer -->
+    </div>
+    <!-- End of Content Wrapper -->
+</div>
+
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+</div>
+</div>
+
+{% endblock content %}
+
+</body>
+</html>
+

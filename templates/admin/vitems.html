@@ -1,0 +1,160 @@
+{% extends 'admin/sidebar.html' %}
+{% load static %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>Farmers Market</title>
+    <style>
+        img {
+
+  border-radius: 4px;
+  padding: 5px;
+  width: 250px;
+  margin-top: 20px;
+  margin-left:8px;
+  height:250px;
+}
+.grid-container {
+
+  display: inline-block;
+  width:1000px;
+  grid-gap: 10px;
+  background-color: #f0f5f1;
+  margin-left:10px;
+  margin-top: 10px;
+
+}
+.card {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+
+  width: 27%;
+  display: inline-block;
+  margin:20px;
+  height:390px;}
+
+  .card:hover {
+  box-shadow: 0 12px 24px 0 rgba(0,0,0,0.2);
+
+}
+.remove{ float: right;}
+
+
+    </style>
+
+
+</head>
+
+<body id="page-top">
+<!-- Page Wrapper -->
+{% include 'admin/navbar.html'%}
+<!-- End of Topbar -->
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div
+            class="d-sm-flex align-items-center justify-content-between mb-4"
+    >
+        <h1 class="h3 mb-0 text-gray-800">{{vendor.name}} products</h1>
+        <a
+                href="{% url  'export_pdf' %}"
+                class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                target="_blank"
+        ><i class="fas fa-download fa-sm text-white-50"></i> Generate
+            Report</a
+        >
+    </div>
+
+    <div class="grid-container">
+
+        {% for prod in page_obj %}
+
+        <div class="card">
+
+            <img src="{{prod.image.url}}" class="img" alt="no img"><br>
+            <p> Name: {{ prod.name}}
+            <form method="post" action="{% url 'remove_Vproduct' %}" class="remove">
+                {%csrf_token%}
+                <input type="hidden" name="product_id" value="{{prod.id}}">
+                <input type="submit" value="remove" class="btn btn-danger btn-sm rounded-0"
+                       data-toggle="tooltip" data-placement="top">
+
+            </form>
+            </p>
+            <p> Quantity:{{ prod.quantity}} </p>
+            <p> Price:{{ prod.price}} </p>
+
+
+        </div>
+        {% endfor %}
+
+        <div class="pagination">
+                        <span class="step-links">
+                            {% if page_obj.has_previous %}
+                                <a href="?page=1">&laquo; first</a>
+                                <a href="?page={{ page_obj.previous_page_number }}">prev</a>
+                            {% endif %}
+
+                            <span class="current">
+                                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                            </span>
+
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                            {% endif %}
+                        </span>
+        </div>
+
+
+    </div>
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+
+    </div>
+
+
+    </tbody>
+    </table>
+</div>
+</div>
+</div>
+
+
+<!-- Content Row -->
+
+
+</div>
+
+<!-- End of Main Content -->
+
+
+<!-- End of Footer -->
+</div>
+<!-- End of Content Wrapper -->
+</div>
+
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+</div>
+</div>
+
+{% endblock content %}
+
+</body>
+</html>
+

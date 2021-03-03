@@ -1,0 +1,154 @@
+{% extends 'admin/sidebar.html' %}
+{% load static %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>Farmers Market</title>
+
+    <style>
+        .bill{text-align:right;}
+    </style>
+
+
+</head>
+
+<div id="page-top">
+<!-- Page Wrapper -->
+     {% include 'admin/navbar.html'%}
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <div
+                        class="d-sm-flex align-items-center justify-content-between mb-4"
+                >
+                    <h1 class="h3 mb-0 text-gray-800">Orders</h1>
+                     <h1 class="h3 mb-0 text-gray-800"> Customer:{{order.order_by.username}}</h1>
+                     <h1 class="h3 mb-0 text-gray-800"> Location :{{order.location}}</h1>
+                    <a
+                            href="{% url  'export_pdf' %}"
+                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                            target="_blank"
+                    ><i class="fas fa-download fa-sm text-white-50"></i> Generate
+                        Report</a
+                    >
+                </div>
+
+
+
+
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+
+                    </div>
+
+
+                </div>
+
+                <div class="card-body">
+                        <div class="table-responsive">
+                            <table
+                                    class="table table-bordered"
+                                    id="dataTable"
+                                    width="100%"
+                                    cellspacing="0"
+                            >
+                                <thead>
+                                <tr class="table-info">
+
+                                    <th>item Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Amount</th>
+                                    <th>Date</th>
+
+
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                 <tr class="table-info">
+
+                                    <th>item Name</th>
+                                    <th>Quantity</th>
+                                     <th>Price</th>
+                                    <th>Amount</th>
+                                     <th>Date</th>
+
+
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                {% for orderitem in orderitem %}
+                                <tr>
+                                    <td>{{ orderitem.product.name }}</td>
+                                    <td>{{ orderitem.quantity }}</td>
+                                     <td>{{ orderitem.product.price }}</td>
+                                    <td>{{ orderitem.total}}</td>
+                                    <td>{{ orderitem.order.order_date}}</td>
+
+
+
+
+                                </tr>
+                                {% endfor %}
+                                  <tr> Total : {{ sum_total}}</tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    <div class="bill" >
+<a
+                            href="{% url  'print_bill' order.id %}"
+                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                            target="_blank"
+                            value="{{order.id}}"
+                    ><i class="fas fa-download fa-sm text-white-50"></i> Generate
+                        Bill</a
+                    >
+</div>
+                    </div>
+                </div>
+
+                    <!-- Content Row -->
+                    <!-- Out Table -->
+
+
+                <!-- End of Main Content -->
+
+
+</div>
+                <!-- End of Footer -->
+            </div>
+            <!-- End of Content Wrapper -->
+        </div>
+
+
+
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+    </div>
+</div>
+
+{% endblock content %}
+
+
+
+</body>
+</html>
+

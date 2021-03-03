@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        @page{
+        size="A4";}
+
+    </style>
+
+</head>
+<body>
+
+<h1>Farmers Nepal Pvt lt</h1>
+
+<h1>date: {{today}}</h1>
+
+
+<div class="card-body">
+    <div class="table-responsive">
+        <table
+                class="table table-bordered"
+                id="dataTable"
+                width="100%"
+                cellspacing="0"
+        >
+            <h1>
+
+                <tr class="table-info">
+                    <td><b>Ordered By</b></td>
+                    <td><b>Product</b></td>
+                    <td><b>Quantity</b></td>
+                    <td><b>Price</b></td>
+                    <td><b>Total</b></td>
+
+
+                </tr>
+            </h1>
+
+
+            <tbody>
+            {% for orderitem in Oproduct %}
+            <tr>
+                <td>{{ orderitem.order.order_by.username}}</td>
+                <td>{{ orderitem.product.name }}</td>
+                <td>{{ orderitem.quantity }}</td>
+                <td>{{ orderitem.product.price }}</td>
+                <td>{{ orderitem.total}}</td>
+
+            </tr>
+            {% endfor %}
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+<h1>Total : RS {{ sum_total}}</h1>
+
+</body>
+</html>

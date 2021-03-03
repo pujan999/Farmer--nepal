@@ -1,0 +1,134 @@
+{% extends 'admin/sidebar.html' %}
+{% load static %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>Farmers Market</title>
+
+
+</head>
+
+<body id="page-top">
+<!-- Page Wrapper -->
+ {% include 'admin/navbar.html'%}            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <div
+                        class="d-sm-flex align-items-center justify-content-between mb-4"
+                >
+                    <h1 class="h3 mb-0 text-gray-800">Comments on Blog : {{blog.title}}</h1>
+                    <a
+                            href="{% url  'export_pdf' %}"
+                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                            target="_blank"
+                    ><i class="fas fa-download fa-sm text-white-50"></i> Generate
+                        Report</a
+                    >
+                </div>
+
+
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+
+                </div>
+
+
+            </div>
+
+            <!-- Content Row -->
+            <div class="row">
+                <!-- In Table -->
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table
+                                class="table table-bordered"
+                                id="dataTable"
+                                width="100%"
+                                cellspacing="0"
+                        >
+                            <thead>
+                            <tr class="table-info">
+                                 <th>Sn</th>
+                                <th>Blog name</th>
+                                <th>Comment</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr class="table-info">
+                                 <th>Sn</th>
+                                <th>Blog name</th>
+                                <th>Comment</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            {% for com in comments %}
+                            <tr>
+                            <td>{{ forloop.counter }}</td>
+                                <td><a>{{ com.blog.title }}</a></td>
+
+                            <td><a>{{ com.comments }}</a></td>
+                            <td>{{ com.date_post }}</td>
+                            <td>{{ com.status }}</td>
+
+                            <td>
+
+
+
+                            </td>
+                            </tr>
+                            {% endfor %}
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Content Row -->
+
+
+        </div>
+
+        <!-- End of Main Content -->
+
+
+        <!-- End of Footer -->
+    </div>
+    <!-- End of Content Wrapper -->
+</div>
+
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+</div>
+</div>
+
+{% endblock content %}
+
+</body>
+</html>
+

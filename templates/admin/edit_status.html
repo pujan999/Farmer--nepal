@@ -1,0 +1,17 @@
+{% extends 'admin/dashboard.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button class="button1" type="submit">Save</button>
+        </form>
+</body>
+{% endblock content %}
+</html>

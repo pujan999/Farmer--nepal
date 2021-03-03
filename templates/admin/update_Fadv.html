@@ -1,0 +1,174 @@
+{% extends 'admin/sidebar.html' %}
+{% load static %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>Farmers Market</title>
+
+    <style>
+    .img {
+    width:100px;
+    height:100px;
+
+    </style>
+
+
+</head>
+
+<body id="page-top">
+ {% include 'admin/navbar.html'%}
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <div
+                        class="d-sm-flex align-items-center justify-content-between mb-4"
+                >
+                    <h1 class="h3 mb-0 text-gray-800">update advertisement : {{adv.title}}</h1>
+                    <a
+                            href="{% url  'export_pdf' %}"
+                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                            target="_blank"
+                    ><i class="fas fa-download fa-sm text-white-50"></i> Generate
+                        Report</a
+                    >
+                </div>
+
+
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+
+                </div>
+
+
+            </div>
+
+                     <a
+                            class="nav-link"
+                            id="profile-tab"
+                            data-toggle="tab"
+                            href="#profile"
+                            role="tab"
+                            aria-controls="profile"
+                            aria-selected="false"
+                    >Update adverts</a
+                    >
+                </li>
+            </ul>
+            <!-- Content Row -->
+            <div class="tab-content" id="myTabContent">
+                <!-- ------Add Items----- -->
+                <div
+                        class="tab-pane fade show active"
+                        id="home"
+                        role="tabpanel"
+                        aria-labelledby="home-tab"
+                >
+
+                    <form action="{% url 'update_Fadv' adv.id %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-sm" style="margin-left:10px;">
+                                <div class="input-group-lg mb-3">
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="New Title"
+                                            value="{{adv.title}}"
+                                            style="margin-top: 30px"
+                                            name="new_title"
+                                    />
+                                </div>
+
+                                <div class="input-group-lg mb-3">
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="discription"
+                                            style="margin-top: 30px"
+                                            name="discription"
+                                    />
+                                </div>
+
+                            </div>
+
+                            <!-- Second Colom -->
+                            <div class="col-sm" style="margin-left: 10px;">
+                                <!-- Company Name -->
+                                <div class="input-group-lg mb-3">
+                                    <input
+                                            type="file"
+                                            class="form-control"
+                                            value="{{adv.image.url}}"
+                                            placeholder="New image"
+                                            style="margin-top: 30px"
+                                            name="new_image"
+                                            required
+                                    />
+                                </div>
+
+                                <!-- Contact -->
+                                <div class="input-group-lg mb-3">
+                                    <input
+                                            type="date"
+                                            class="form-control"
+                                            value="{{ adv.date_post }}"
+                                            style="margin-top: 30px"
+                                            name="new_date_post"
+                                    />
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <button type="submit" value="Submit" class="btn btn-primary" style="margin-left:10px ;">Submit
+                        </button>
+                    </form>
+
+                </div>
+
+                <!-- ------Add items Ends----- -->
+
+
+            </div>
+        </div>
+
+
+        <!-- Content Row -->
+
+
+    </div>
+
+    <!-- End of Main Content -->
+
+
+    <!-- End of Footer -->
+</div>
+<!-- End of Content Wrapper -->
+</div>
+
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+</div>
+</div>
+
+{% endblock content %}
+
+</body>
+</html>
+

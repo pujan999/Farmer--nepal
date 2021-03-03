@@ -1,0 +1,212 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VEndor</title>
+    <style>
+
+</style>
+</head>
+<body>
+<h1> {{user.username}}</h1>
+<a href="{% url 'vendorlogout' %}" >Log-Out</a>
+ {% for message in messages%}
+
+                    <p class="text-danger"> {{message}} </p>
+
+                    {% endfor %}
+
+<table  class="auto-index">
+    <tr >
+
+                                    <th>Vendor name</th>
+                                    <th>Location</th>
+                                    <th>Phone</th>
+                                    <th>Verified</th>
+                                    <th>Actions</th>
+                                </tr>
+
+   <>
+
+                                    <td>{{ vendor.name }}</td>
+                                    <td>{{ vendor.location }}</td>
+                                    <td>{{ vendor.phone}}</td>
+                                     <td>{{ vendor.user.is_staff}}</td>
+   <td>
+
+
+                                    </td>
+                                </tr>
+</table>
+
+<h1> Item Page</h1>
+<form action="{% url 'vendor_product' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input
+            type="text"
+            class="form-control"
+            placeholder="Product"
+            style="margin-top: 30px"
+            name="name"
+            required
+    />
+
+
+
+
+    <select
+            class="browser-default custom-select"
+            style="margin-top: 30px; height: 47px;"
+            name="category"
+             required
+    >
+        <option selected>Category</option>
+        {% for cat in cate %}
+        <option value='{{cat.name}}'>{{cat.name}}</option>
+        {% endfor %}
+    </select>
+    </div>
+    <!-- Email -->
+    <div class="input-group-lg mb-3">
+        <input
+                type="text"
+                class="form-control"
+                placeholder="price"
+                style="margin-top: 30px"
+                name="price"
+                required
+        />
+    </div>
+    </div>
+
+    <!-- Second Colom -->
+    <div class="col-sm" style="margin-left: 10px;">
+        <!-- Company Name -->
+        <div class="input-group-lg mb-3">
+            <input
+                    type="text"
+                    class="form-control"
+                    placeholder="description"
+                    style="margin-top: 30px"
+                    name="description"
+                    required
+            />
+        </div>
+
+        <!-- Contact -->
+        <div class="input-group-lg mb-3">
+            <input
+                    type="text"
+                    class="form-control"
+                    placeholder="orignal_price"
+                    style="margin-top: 30px"
+                    name=" originalprice"
+                     required
+            />
+        </div>
+
+        <!-- Company Contact -->
+        <div class="input-group-lg mb-3">
+            <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Quantity"
+                    style="margin-top: 30px"
+                    name="quantity"
+                     required
+            />
+        </div>
+
+        <!-- Pan Number -->
+        <div class="input-group-lg mb-3">
+            <input
+                    type="text"
+                    class="form-control"
+                    placeholder="sales"
+                    style="margin-top: 30px"
+                    name="sales"
+                     required
+            />
+        </div>
+        <div class="input-group-lg mb-3">
+            <input
+                    type="text"
+                    class="form-control"
+                    placeholder="unit"
+                    style="margin-top: 30px"
+                    name="unit"
+                     required
+            />
+        </div>
+        <div class="input-group-lg mb-3">
+            <input
+                    type="date"
+                    class="form-control"
+                    placeholder="date"
+                    style="margin-top: 30px"
+                    name="post_date"
+                     required
+            />
+        </div>
+        <div>
+            <label>image</label>
+            <input
+                    type="file"
+                    class="form-control"
+                    placeholder="image"
+                    style="margin-top: 30px"
+                    name="image"
+                     required
+            />
+        </div>
+    </div>
+    </div>
+    <button type="submit" value="Submit" class="btn btn-primary" style="margin-left:10px ;">Submit
+    </button>
+</form>
+
+
+ <div class="row">
+    {% for product in prod %}
+    <div class="col-md-4  col-sm-6 col-lg-3 Product">
+        <div class="col-style">
+            <p>{{product.vendor.name}}</p>
+            <img src="{{product.image.url}}" class="img" alt="no img"><br>
+            <h4> {{product.name}}</h4>
+            <p>{{product.description}}</p>
+            <div class="price-btn-parent">
+                {% if product.originalprice > product.price %}
+                <div class="price"><strike>{{product.originalprice}}</strike></div>
+                <div class="price">{{ product.price }}</div>
+                {% else %}
+                <div class="price">{{ product.price }}</div>
+                {% endif %}
+                <form method="post" action="{% url 'remove_vproduct' %}">
+                    {%csrf_token %}
+                    <input type="hidden" name="product_id" value="{{product.id}}">
+                    <input type="submit" value="remove_product" class="remove">
+
+                </form>
+                 <td>
+                                        <a href="{% url 'update_Vproduct' product.id %}"  value="{{product.id}}">Update</a>
+
+                                    </td>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
+<h1>your items that has been ordered</h1>
+{% for item in order_prod %}
+   <h1> item :{{item.product.name}}</h1>
+    <h1> item :{{item.quantity}}</h1>
+
+
+
+{% endfor %}
+
+</body>
+</html>

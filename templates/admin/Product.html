@@ -1,0 +1,171 @@
+{% extends 'admin/sidebar.html' %}
+{% load static %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>Farmers Market</title>
+     <style>
+    .img {
+    width:90px;
+    height:100px;
+
+
+  form {
+    margin-top:30px;
+  }
+
+
+    </style>
+
+
+</head>
+
+<body id="page-top">
+<!-- Page Wrapper -->
+    {% include 'admin/navbar.html'%}
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <div
+                        class="d-sm-flex align-items-center justify-content-between mb-4"
+                >
+                    <h1 class="h3 mb-0 text-gray-800">Products</h1>
+                    <a
+                            href="{% url  'export_pdf' %}"
+                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                            target="_blank"
+                    ><i class="fas fa-download fa-sm text-white-50"></i> Generate
+                        Report</a
+                    >
+                </div>
+
+
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+
+                </div>
+
+
+            </div>
+
+            <!-- Content Row -->
+
+                <!-- In Table -->
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table
+                                class="table table-bordered"
+                                id="dataTable"
+                                width="60%"
+                                cellspacing="0"
+                        >
+                            <thead>
+                            <tr class="table-info">
+                                    <th>SN</th>
+                                    <th>Name</th>
+                                    <th>Vendor</th>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Image</th>
+                                    <th>Price</th>
+                                    <th>OriginalPrice</th>
+                                    <th>Quantity</th>
+                                    <th>Unit</th>
+
+                                    <th>Actions</th>
+
+
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr class="table-info">
+                                 <th>SN</th>
+                                    <th>Name</th>
+                                    <th>Vendor</th>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Image</th>
+                                    <th>Price</th>
+                                    <th>OriginalPrice</th>
+                                    <th>Quantity</th>
+                                    <th>Unit</th>
+                                    <th>Actions</th>
+
+
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                           {% for prod in prod %}
+                                <tr>
+                                    <td>{{forloop.counter }}</td>
+                                    <td>{{prod.name }}</td>
+                                    <td>{{prod.vendor.name }}</td>
+                                    <td>{{ prod.description }}</td>
+                                    <td>{{ prod.category  }}</td>
+                                    <td><img src="{{prod.image.url}}" class="img" ></td>
+
+                                    <td>{{ prod.price }}</td>
+                                    <td>{{ prod.originalprice }}</td>
+                                    <td>{{ prod.quantity }}</td>
+                                    <td>{{ prod.unit }}</td>
+                                    <td>
+
+
+                                        <form method="post" action="{% url 'remove_product'%}">
+                                            {%csrf_token %}
+                                            <input type="hidden" name="product_id" value="{{prod.id}}">
+                                            <input type="submit" value="remove" class="btn btn-danger btn-sm rounded-0"
+                                                   data-toggle="tooltip" data-placement="top">
+
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+
+                                </tbody>
+                            </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Content Row -->
+
+
+        </div>
+
+        <!-- End of Main Content -->
+
+
+        <!-- End of Footer -->
+    </div>
+    <!-- End of Content Wrapper -->
+</div>
+
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+</div>
+</div>
+
+{% endblock content %}
+
+</body>
+</html>
+

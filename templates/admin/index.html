@@ -1,0 +1,270 @@
+{% extends 'admin/sidebar.html' %}
+{% load static %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>Farmers Market</title>
+
+    <style>
+        .confirm{color:white;
+                background-color:#3461eb;
+                width:80px;
+                border-radius: 20px;}
+
+         .confirm {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+ .button .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: blue;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.button:hover .tooltiptext {
+  visibility: visible;
+}
+    </style>
+
+
+</head>
+
+<body id="page-top">
+ {% include 'admin/navbar.html'%}
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <div
+                        class="d-sm-flex align-items-center justify-content-between mb-4"
+                >
+                    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                    <a
+                            href="{% url  'export_pdf' %}"
+                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                            target="_blank"
+                    ><i class="fas fa-download fa-sm text-white-50"></i> Generate
+                        Report</a
+                    >
+                </div>
+
+                <!-- Content Row -->
+                <div class="row">
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div
+                                                class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                                        >
+                                            Total orders
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            <p>{{total_order}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div
+                                                class="text-xs font-weight-bold text-success text-uppercase mb-1"
+                                        >
+                                            Todays orders
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                            {{todays_order}}
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+
+                    </div>
+
+
+                </div>
+
+                <!-- Content Row -->
+                <div class="row">
+                    <!-- In Table -->
+                    <div class="col-xl-6 col-md-6 mb-4">
+                        <table class="table table-bordered" id="dataTable" width="50%" cellspacing="0">
+                            <thead>
+                            <tr class="table-success">
+                                <th><span style="color:green">Sn <i class="fas fa-fw fa-caret-up"></i></span>
+                                </th>
+                                <th><span style="color:green">Customer <i class="fas fa-fw fa-caret-up"></i></span>
+                                </th>
+                                 <th><span style="color:green">Delivered <i class="fas fa-fw fa-caret-up"></i></span>
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for order in order %}
+                            <tr>
+
+
+                                <td>{{ forloop.counter }}</td>
+                                   <td><a href="{% url 'orderitem' order.id %}" value="{{order.order_by_id}}">{{ order.order_by.username }}</a></td>
+                                 <td> <form method="POST" action="{% url 'delivered' order.id %}" class="button">
+                                        {%csrf_token %}
+                                        <input type="hidden" name="order_id" value="{{order.id}}">
+                                        <input type="submit" value="{{order.status}}" class="confirm" >
+                                      {% if order.status == True %}
+                                     <span class="tooltiptext">Click if order is not delivered
+                                                             </span>
+                                     {% else %}
+                                     <span class="tooltiptext">Click if order is  delivered
+                                                             </span>
+
+
+                                     {% endif %}
+                                 </form>
+
+                                 </td>
+
+                            </tr>
+                            {% endfor %}
+
+
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th class="table-success"><span style="color: green;"> All orders <i
+                                        class="fas fa-fw fa-caret-up"></i></span></th>
+
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                    <!-- Content Row -->
+                    <!-- Out Table -->
+                    <div class="col-xl-6 col-md-6 mb-4">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr class="table-danger">
+                                <th><span style=color:red>Delivered orders <i
+                                        class="fas fa-fw fa-caret-down"></i></span></th>
+                            </tr>
+                            <tbody>
+                        {% for order in delivered_orders %}
+                            <tr>
+
+
+                                <td><a href="{% url 'orderitem' order.id %}" value="{{order.order_by_id}}">{{ order.order_by.username }}</a></td>
+                            </tr>
+                        {% endfor %}
+
+
+                            </tbody>
+
+
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th class="table-danger"><span style="color: red;">Delivered <i
+                                        class="fas fa-fw fa-caret-down"></i></span></th>
+
+                            </tr>
+                            </tfoot>
+                        </table>
+                         <div class="col-xl-6 col-md-6 mb-4">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr class="table-danger">
+                                <th><span style=color:red>Todays orders <i
+                                        class="fas fa-fw fa-caret-down"></i></span></th>
+                            </tr>
+                            <tbody>
+                        {% for order in todays_orders %}
+                            <tr>
+
+
+                                <td><a href="{% url 'orderitem' order.id %}" value="{{order.order_by_id}}">{{ order.order_by.username }}</a></td>
+                            </tr>
+                        {% endfor %}
+
+
+                            </tbody>
+
+
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th class="table-danger"><span style="color: red;">Todays orders<i
+                                        class="fas fa-fw fa-caret-down"></i></span></th>
+
+                            </tr>
+                            </tfoot>
+                        </table>
+
+                    </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- End of Main Content -->
+
+
+                <!-- End of Footer -->
+            </div>
+            <!-- End of Content Wrapper -->
+        </div>
+
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+    </div>
+</div>
+
+{% endblock content %}
+
+</body>
+</html>
+

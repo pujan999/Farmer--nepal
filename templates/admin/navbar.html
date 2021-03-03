@@ -1,0 +1,70 @@
+<div id="wrapper">
+
+
+    <!-- Sidebar Toggler (Sidebar) -->
+
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar -->
+            <nav
+                    class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
+            >
+                <!-- Sidebar Toggle (Topbar) -->
+                <button
+                        id="sidebarToggleTop"
+                        class="btn btn-link d-md-none rounded-circle mr-3"
+                >
+                    <i class="fa fa-bars"></i>
+                </button>
+
+                <!-- Topbar Search -->
+
+                    <div >
+                       <h2>Hello Admin</h2>
+                    </div>
+
+                  <div>
+
+                {% for message in messages%}
+
+                <p class="text-danger"> {{message}} </p>
+
+                {% endfor %}
+            </div>
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                    <li class="nav-item dropdown no-arrow d-sm-none">
+                                          <a class=""  href="{% url 'adminlogout'  %}"><i> log out</i></a>
+                         <a class="fas fa-download fa-sm text"  href="{% url 'export_pdf'  %}" target="_blank"><i> Report</i></a>
+                        <!-- Dropdown - Messages -->
+
+                    </li>
+
+                    <!-- Nav Item - Alerts -->
+
+                    <a
+                            href="{% url 'adminlogout'  %}"
+                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                    ><i class="fas fa-download fa-sm text-white-50"></i> Log out
+                    </a
+                    >
+                    <!-- Dropdown - Alerts -->
+
+                    </li>
+
+                    <!-- Nav Item - Messages -->
+
+
+                    <div class="topbar-divider d-none d-sm-block"></div>
+
+                    <!-- Nav Item - User Information -->
+
+                </ul>
+            </nav>

@@ -1,0 +1,280 @@
+{% extends 'admin/sidebar.html' %}
+{% load static %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>Farmers Market</title>
+
+    <style>
+    .img {
+    width:100px;
+    height:100px;
+
+
+    </style>
+
+
+</head>
+
+<body id="page-top">
+ {% include 'admin/navbar.html'%}
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <div
+                        class="d-sm-flex align-items-center justify-content-between mb-4"
+                >
+                    <h1 class="h3 mb-0 text-gray-800">Add advertisement</h1>
+                    <a
+                            href="{% url  'export_pdf' %}"
+                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                            target="_blank"
+                    ><i class="fas fa-download fa-sm text-white-50"></i> Generate
+                        Report</a
+                    >
+                </div>
+
+
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+
+                </div>
+
+
+            </div>
+            <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin-left: 10px;">
+                <li class="nav-item">
+                    <a
+                            class="nav-link active"
+                            id="home-tab"
+                            data-toggle="tab"
+                            href="#home"
+                            role="tab"
+                            aria-controls="home"
+                            aria-selected="true"
+                    >Add Main Advert</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a
+                            class="nav-link"
+                            id="profile-tab"
+                            data-toggle="tab"
+                            href="#profile"
+                            role="tab"
+                            aria-controls="profile"
+                            aria-selected="false"
+                    >Main adverts</a
+                    >
+                </li>
+            </ul>
+            <!-- Content Row -->
+            <div class="tab-content" id="myTabContent">
+                <!-- ------Add Items----- -->
+                <div
+                        class="tab-pane fade show active"
+                        id="home"
+                        role="tabpanel"
+                        aria-labelledby="home-tab"
+                >
+                    <form action="{% url 'advertisement' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-sm" style="margin-left:10px;">
+                                <div class="input-group-lg mb-3">
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Title"
+                                            style="margin-top: 30px"
+                                            name="title"
+                                    />
+                                </div>
+
+                                <!-- Name -->
+                                <div class="input-group-lg mb-3">
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="discription"
+                                            style="margin-top: 30px"
+                                            name="discription"
+                                    />
+                                </div>
+                                <!-- Email -->
+                                <div class="input-group-lg mb-3">
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="tag"
+                                            style="margin-top: 30px"
+                                            name="tag"
+                                            required
+                                    />
+                                </div>
+                            </div>
+
+                            <!-- Second Colom -->
+                            <div class="col-sm" style="margin-left: 10px;">
+                                <!-- Company Name -->
+                                <div class="input-group-lg mb-3">
+                                    <input
+                                            type="file"
+                                            class="form-control"
+                                            placeholder="image"
+                                            style="margin-top: 30px"
+                                            name="image"
+                                            required
+                                    />
+                                </div>
+
+                                <!-- Contact -->
+                                <div class="input-group-lg mb-3">
+                                    <input
+                                            type="date"
+                                            class="form-control"
+                                            placeholder="Post Date"
+                                            style="margin-top: 30px"
+                                            name="date_post"
+                                    />
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <button type="submit" value="Submit" class="btn btn-primary" style="margin-left:10px ;">Submit
+                        </button>
+                    </form>
+                </div>
+
+                <!-- ------Add items Ends----- -->
+
+                <!-- -----------List Items----- -->
+                <div
+                        class="tab-pane fade"
+                        id="profile"
+                        role="tabpanel"
+                        aria-labelledby="profile-tab"
+                >
+
+                    <!--  <div class="card shadow mb-4"> -->
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            Adverts Details
+                        </h6>
+
+                        <!-- Actions -->
+                        <!-- <button class="btn frm-ctrl" type="button">
+                          <i class="fas fa-edit fa-sm"></i>
+                        </button>
+
+                        <button class="btn frm-ctrl" type="button">
+                          <i class="fas fa-trash-alt fa-sm"></i>
+                        </button> -->
+
+                    </div>
+
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table
+                                    class="table table-bordered"
+                                    id="dataTable"
+                                    width="100%"
+                                    cellspacing="0"
+                            >
+                                <thead>
+                                <tr class="table-info">
+                                    <th>SN</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Tags</th>
+                                    <th>Image</th>
+                                    <th>Post Date</th>
+                                    <th>Actions</th>
+
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr class="table-info">
+                                    <th>SN</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Tags</th>
+                                    <th>Image</th>
+                                    <th>Post Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+
+                                {% for adv in adv %}
+                                <tr>
+                                    <td>{{forloop.counter }}</td>
+                                    <td>{{ adv.title }}</td>
+                                    <td>{{ adv.discription }}</td>
+                                    <td>{{ adv.tag }}</td>
+                                    <td><img src="{{adv.image.url}}" class="img"></td>
+                                    <td>{{ adv.date_post }}</td>
+                                    <td><a value="{{adv.id}}" method="POST" href="{% url 'update_adv' adv.id %}"
+                                           name="adv_id"
+                                           class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip"
+                                           data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+                                        <form method="post" action="{% url 'remove_adv' %}">
+                                            {%csrf_token %}
+                                            <input type="hidden" name="adv_id" value="{{adv.id}}">
+                                            <input type="submit" value="remove" class="btn btn-danger btn-sm rounded-0"
+                                                   data-toggle="tooltip" data-placement="top">
+
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Content Row -->
+
+
+            </div>
+
+            <!-- End of Main Content -->
+
+
+            <!-- End of Footer -->
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+</div>
+</div>
+
+{% endblock content %}
+
+</body>
+</html>
+

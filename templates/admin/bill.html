@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        @page{
+        size="A4";}
+
+        h1 { text-align: center; }
+
+        .head { margin-top :100px;}
+
+        .table{ margin-left: 80px;}
+
+    </style>
+
+</head>
+<body>
+
+<h1 class="head">Farmers Nepal Pvt lt</h1>
+<h2>Bill For</h2>
+<h2> Customer:{{order.order_by.username}}</h2>
+<h2> Location :{{order.location}}</h2>
+
+<h2>date: {{today}}</h2>
+<div class="card-body">
+    <div class="table-responsive">
+        <table
+                class="table"
+                id="dataTable"
+                width="100%"
+                cellspacing="0"
+        >
+            <h1>
+
+                <tr class="table-info">
+                    <td><b>SN</b></td>
+                    <td><b>Product</b></td>
+                    <td><b>Quantity</b></td>
+                    <td><b>Price</b></td>
+                    <td><b>Total</b></td>
+
+
+                </tr>
+            </h1>
+
+
+            <tbody>
+            {% for orderitem in orderitem %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{ orderitem.product.name }}</td>
+                <td>{{ orderitem.quantity }}</td>
+                <td>{{ orderitem.product.price }}</td>
+                <td>{{ orderitem.total}}</td>
+
+            </tr>
+            {% endfor %}
+
+
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+<h1>Total : RS {{ sum_total}}</h1>
+
+</body>
+</html>

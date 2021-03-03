@@ -1,0 +1,17 @@
+
+<h1>{{ blogs.title}}</h1>
+  <p>{{ blogs.description}}</p>
+  {{ blogs.post_date }}
+
+  <h3>Comments</h3>
+  {% for comment in comments %}
+  <p>{{comment.comments}}</p> <br>
+
+{% endfor%}
+
+
+
+  <form action="" method="POST">
+    {% csrf_token %}
+   {{form.as_table}}
+  <button type="submit" class="btn btn-success" value='save'>Submit</button>

@@ -1,0 +1,76 @@
+{% extends 'admin/sidebar.html' %}
+{% load static %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+		form {border: 3px solid #f1f1f1;
+		      width:50%;
+		      margin-left:200px;
+		      }
+
+input[type=text], input[type=password] {
+  width: 40%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+
+}
+
+
+
+    </style>
+</head>
+
+
+<body id="page-top">
+ {% include 'admin/navbar.html'%}
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <div
+                        class="d-sm-flex align-items-center justify-content-between mb-4"
+                >
+                    <h1 class="h3 mb-0 text-gray-800" style="margin-left:200px">Edit Admin Profile</h1>
+                    <a
+                            href="{% url  'export_pdf' %}"
+                            class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                            target="_blank"
+                    ><i class="fas fa-download fa-sm text-white-50"></i> Generate
+                        Report</a
+                    >
+                </div>
+
+
+                <!-- Earnings (Monthly) Card Example -->
+                <div class="col-xl-3 col-md-6 mb-4">
+
+                </div>
+
+
+            </div>
+            <form action="{% url 'edit_profile' %}" method="POST">
+                {% csrf_token %}
+                <label><b>Username</b></label></br><input type="text" name="new_username"
+                                                          placeholder="{{user.username}}"> </br>
+                <label><b>Old Password:</b></label></br><input type="password" name="old_password"
+                                                               placeholder="old Password"> </br>
+                <label><b>New Paassword:</b></label></br><input type="password" name="new_password"
+                                                                placeholder="new Password"> </br>
+                <input type="submit" vlaue="submit">
+            </form>
+
+
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+</body>
+</html>

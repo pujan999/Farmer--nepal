@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table  class="auto-index">
+    <tr >
+                                    <th> SN</th>
+                                    <th>ordered by</th>
+                                    <th>Date</th>
+                                    <th>Location</th>
+                                    <th>Phone</th>
+                                    <th>Status</th>
+                                </tr>
+{% for today in todayorder %}
+   <>
+                                    <td>{{ forloop.counter }}</td>
+    <td> <a href="{% url 'orderitem' today.id %}"  value="{{today.order_by_id}}">{{ today.order_by.username }}</a></td>
+                                    <td>{{ today.order_date }}</td>
+                                    <td>{{ today.location }}</td>
+                                    <td>{{ today.phone}}</td>
+                                     <td>{{ today.status}}</td>
+
+
+   <td>
+                                       <td><a href="{% url 'update_status' today.id %}" value="{{today.id}}">Update</a></td>
+
+                                    </td>
+                                </tr>
+{% endfor %}
+</table>
+</body>
+</html>

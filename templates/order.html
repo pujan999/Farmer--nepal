@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1 style="margin: auto; text-align: center; ">This is my oder summery</h1>
+ <div style="text-align: center; color: brown;" > {% for order in order_items %}
+
+  {{order.quantity}}<br>
+  {{ order.product.name}}<br>
+  {{ order.order_by}}<br>
+  {{ order.total}}<br>
+{{order.order_date|date:'yy, m,d'}}<br>
+<hr>
+<br>
+  {% endfor %}
+</div>
+</body>
+</html>

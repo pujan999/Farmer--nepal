@@ -1,0 +1,38 @@
+{% extends 'admin/dashboard.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1> Total orders:{{total_order}}</h1>
+<h1>Todays orders: <a href="{% url 'todayorder' %}"> {{todays_order}}</a></h1>
+<table class="auto-index">
+    <tr>
+        <th> SN</th>
+        <th>ordered by</th>
+        <th>Date</th>
+        <th>Location</th>
+        <th>Phone</th>
+        <th>Status</th>
+    </tr>
+    {% for order in order %}
+    <>
+    <td>{{ forloop.counter }}</td>
+    <td><a href="{% url 'orderitem' order.id %}" value="{{order.order_by_id}}">{{ order.order_by.username }}</a></td>
+    <td>{{ order.order_date }}</td>
+    <td>{{ order.location }}</td>
+    <td>{{ order.phone}}</td>
+    <td>{{ order.status}}</td>
+    <td><a href="{% url 'update_status' order.id %}" value="{{order.id}}">Update</a></td>
+
+
+    </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}
+</body>
+</html>
